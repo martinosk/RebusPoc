@@ -12,6 +12,8 @@ internal class StartHandler : IHandleMessages<StartCommand>
     {
         logger.LogInformation("StartHandler handling {message.Id}", message.Id);
         Console.WriteLine($"I'm handling {message.Id}");
+        if (DateTime.Now.Ticks % 3 == 0)
+            throw new Exception("I felt like failing");
         await Task.Yield();
     }
 }

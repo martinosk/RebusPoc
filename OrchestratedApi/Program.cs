@@ -14,8 +14,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddHostedService<RebusBackgroundService>();
 builder.Services.AddRebusHandler<StartHandler>();
 builder.Services.AddRebus(cfg => cfg
-    .Transport(t => t.UseInMemoryTransport(new InMemNetwork(), "Messages"))
-    .Routing(r => r.TypeBased().Map<StartCommand>("Messages"))
+    .Transport(t => t.UsePostgreSql("host=localhost;database=rebuspoc;username=api;password=api;pooling=true;maxpoolsize=30;","messages", "inputqueue"))
+    .Routing(r => r.TypeBased().Map<StartCommand>("messages"))
     .Subscriptions(s => s.StoreInMemory()));
 
 var app = builder.Build();

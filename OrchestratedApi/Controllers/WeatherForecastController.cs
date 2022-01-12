@@ -22,9 +22,9 @@ namespace OrchestratedApi.Controllers
 
 
         [HttpGet(Name = "GetWeatherForecast")]
-        public IEnumerable<WeatherForecast> Get()
+        public async Task<IEnumerable<WeatherForecast>> Get()
         {
-            bus.Publish(new StartCommand("abc123"));
+            await bus.SendLocal(new StartCommand("abc123"));
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {
                 Date = DateTime.Now.AddDays(index),
